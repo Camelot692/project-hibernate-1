@@ -21,18 +21,9 @@ public class PlayerRepositoryDB implements IPlayerRepository {
 
     private final SessionFactory sessionFactory;
 
-//    @NamedQueries({
-//            @NamedQuery(name = "Player_Count",
-//                    query = "select count(*) from Player"),
-//            @NamedQuery(name = "Player_Count2",
-//                    query = "select count(*) from Player")
-//    })
-
     public PlayerRepositoryDB() {
         Properties properties = new Properties();
 
-//        properties.put(Environment.DRIVER, "com.mysql.jdbc.Driver");
-//        properties.put(Environment.URL, "jdbc:mysql://localhost:3306/rpg");
         properties.put(Environment.DRIVER, "com.p6spy.engine.spy.P6SpyDriver");
         properties.put(Environment.URL, "jdbc:p6spy:mysql://localhost:3306/rpg");
 
@@ -49,11 +40,7 @@ public class PlayerRepositoryDB implements IPlayerRepository {
 
     @Override
     public List<Player> getAll(int pageNumber, int pageSize) {
-//        return null;
-//        try (Session session = sessionFactory.openSession()) {
-//            Query<Player> query = session.createQuery("from Player", Player.class);
-//            return query.list();
-//        }
+
         try (Session session = sessionFactory.openSession()) {
             NativeQuery<Player> query = session.createNativeQuery("select * from player", Player.class);
             List<Player> resultLIst = query.list();
@@ -63,7 +50,7 @@ public class PlayerRepositoryDB implements IPlayerRepository {
 
     @Override
     public int getAllCount() {
-//        return 0;
+
         try (Session session = sessionFactory.openSession()) {
             Query<Integer> query = session.createNamedQuery("Player_Count", Integer.class);
             int count = query.getSingleResult();
