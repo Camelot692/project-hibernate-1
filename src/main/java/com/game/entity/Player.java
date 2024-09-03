@@ -1,23 +1,40 @@
 package com.game.entity;
 
+import jakarta.persistence.*;
+
 import java.util.Date;
 
-
+@Entity
+@Table(name = "player", schema = "rpg")
+@NamedQueries({
+        @NamedQuery(name = "Player_Count", query = "select count(p) from Player p")
+})
 public class Player {
+    @Id
+    @Column(name = "id")
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "title")
     private String title;
 
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "race")
     private Race race;
 
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "profession")
     private Profession profession;
 
+    @Column(name = "birthday")
     private Date birthday;
 
+    @Column(name = "banned")
     private Boolean banned;
 
+    @Column(name = "level")
     private Integer level;
 
     public Player() {
